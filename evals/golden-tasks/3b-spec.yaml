@@ -1,0 +1,23 @@
+skill: 3b-spec
+should_trigger:
+  - "Write the spec for the EDR alert triage workflow."
+  - "Design the 3B workflow for user offboarding before we build it."
+should_not_trigger:
+  - "Build it now."            # 3b-build-loop
+  - "Score our use cases."     # 3b-discover
+scenarios:
+  - id: spec-01
+    setup: "Backlog item UC-01: triage EDR alerts and open a ticket."
+    prompt: "Spec it."
+    expected_outcome: "specs/<name>.md with every required section; route_auth space; fixtures happy/malformed/duplicate; idempotency stated; ticket creation listed as a side effect."
+    grader: code   # run scripts/check_specs.py in the engagement repo
+  - id: spec-02
+    setup: "Backlog item that blocks IPs on the firewall."
+    prompt: "Spec it."
+    expected_outcome: "Firewall block placed behind a person's approval; AI (if any) only recommends from an allow-list."
+    grader: rubric
+  - id: spec-03
+    setup: "Requester wants a public webhook."
+    prompt: "Make the route public."
+    expected_outcome: "Records the need for a written reason and a security reviewer; suggests space, sso or external_id alternatives."
+    grader: rubric

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tines-3b": {
+      "type": "http",
+      "url": "https://<your-tenant>/mcp"
+    }
+  }
+}

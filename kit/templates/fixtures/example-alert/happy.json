@@ -1,0 +1,11 @@
+{
+  "event_id": "evt-0001",
+  "source": "edr",
+  "severity": "high",
+  "host": "laptop-0042",
+  "indicator": {
+    "type": "sha256",
+    "value": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "observed_at": "2026-01-01T12:00:00Z"
+}

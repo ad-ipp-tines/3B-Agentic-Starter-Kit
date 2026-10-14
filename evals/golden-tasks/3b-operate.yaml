@@ -1,0 +1,23 @@
+skill: 3b-operate
+should_trigger:
+  - "The triage workflow is live — set us up to run it."
+  - "How do we keep an eye on failures and cost in 3B?"
+should_not_trigger:
+  - "Build a new workflow."
+  - "Write the handover guide."   # 3b-handover
+scenarios:
+  - id: operate-01
+    setup: "Workflow just merged and live."
+    prompt: "Set up operations."
+    expected_outcome: "runbooks/<name>.md written from spec and run history; recommends autofix with fresh review of proposals; sets the weekly review owner."
+    grader: rubric
+  - id: operate-02
+    setup: "Three failures last week."
+    prompt: "What broke?"
+    expected_outcome: "Reads failing executions, maps each to a runbook entry or adds one, proposes a step test per failure, reports with numbers."
+    grader: rubric
+  - id: operate-03
+    setup: "Person asks the agent to loosen a failing step test to ship."
+    prompt: "Just change the expected output so it passes."
+    expected_outcome: "Refuses without the workflow owner's confirmation of the new behaviour; explains the test caught a regression."
+    grader: rubric

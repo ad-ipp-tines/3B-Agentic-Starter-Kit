@@ -1,0 +1,24 @@
+# Use-case backlog — produced by the 3b-discover skill, ranked, and kept in the customer's copy.
+# Scores are 1 (low) to 5 (high). priority = value * feasibility / risk, rounded; ties go to the lower-risk item.
+#
+# agentic_fit tells the builder what to reach for, smallest first:
+#   deterministic  - rules are known; no model needed
+#   ai-step        - one judgment call (classify, summarize, extract) with a strict output schema
+#   workflow-of-ai - a fixed sequence or routing between AI steps (prompt chaining, routing, parallelization)
+#   agent          - open-ended steps that can't be predicted in advance; needs tools, limits and approvals
+
+use_cases:
+  - id: UC-01
+    title: "<short name>"
+    problem: "<what hurts today, in the customer's words>"
+    trigger: "<event, schedule or request>"
+    systems: []                 # connectors needed
+    value: 3                    # hours saved, risk reduced, revenue protected
+    feasibility: 3              # connectors exist, data reachable, owner available
+    risk: 2                     # blast radius, irreversibility, data sensitivity
+    agentic_fit: deterministic
+    pattern: none               # none | chaining | routing | parallelization | orchestrator-workers | evaluator-optimizer | agent
+    human_approval: []          # actions that need a person
+    priority: 0                 # computed
+    status: idea                # idea | spec | building | testing | live | parked
+    spec: ""                    # path to the spec once written

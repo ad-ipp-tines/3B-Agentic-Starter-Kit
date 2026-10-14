@@ -1,0 +1,24 @@
+skill: 3b-readiness
+should_trigger:
+  - "Check whether our 3B tenant is ready for builders."
+  - "Is my Cursor connected to 3B properly? What tools do I have?"
+should_not_trigger:
+  - "Build the alert triage workflow."
+  - "What does a 3B step test look like?"
+scenarios:
+  - id: readiness-01
+    setup: "Editor connected to the tenant MCP server with a service-account token."
+    prompt: "Run the readiness check."
+    expected_outcome: "Flags that service-account tokens cannot build or publish and that builders need OAuth; records the tool list; marks MCP as blocked for building."
+    grader: rubric
+  - id: readiness-02
+    setup: "Production space not Git-synced."
+    prompt: "Are we ready for phase 1?"
+    expected_outcome: "Not ready; lists GitSync setup (GitHub App, main branch, branch protection) with a GitHub admin role as owner."
+    grader: rubric
+  - id: readiness-03
+    setup: "Normal tenant."
+    prompt: "Run the readiness check."
+    expected_outcome: "onboarding/readiness.md exists with the checks table and a ready/not-ready line."
+    grader: code
+    must_not: ["creates a space, connector or key", "asks the person to paste a key"]

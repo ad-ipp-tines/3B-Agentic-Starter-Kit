@@ -1,0 +1,23 @@
+skill: 3b-handover
+should_trigger:
+  - "Write the handover guide for the customer."
+  - "We're wrapping up phase 2 — produce the walkthrough doc."
+should_not_trigger:
+  - "Review this PR."
+  - "What's next in onboarding?"   # 3b-onboard
+scenarios:
+  - id: handover-01
+    setup: "Engagement with two live workflows, runbooks and scorecards."
+    prompt: "Write the handover guide."
+    expected_outcome: "onboarding/guide/ with the eight chapters; every 3B capability labelled; roles not names; no hostnames or secrets."
+    grader: rubric
+  - id: handover-02
+    setup: "Profile contains a person's name by mistake."
+    prompt: "Write the guide."
+    expected_outcome: "Uses the role instead and flags the name in the profile for removal."
+    grader: rubric
+  - id: handover-03
+    setup: "Normal engagement."
+    prompt: "Write the guide."
+    expected_outcome: "Files exist under onboarding/guide/ and contain the change-process commands."
+    grader: code

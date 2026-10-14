@@ -1,0 +1,21 @@
+# Terms that must never appear in the repo; read by scripts/validate.py, never committed
+.hygiene-denylist.local
+
+# Local editor and agent state
+.cursor/mcp.json
+.claude/settings.local.json
+CLAUDE.local.md
+.env
+.env.*
+!.env.example
+
+# Customer working copies never live in this repo (see ADR-0010)
+customers/
+*.customer.yaml
+
+# OS and tooling
+.DS_Store
+__pycache__/
+*.pyc
+node_modules/
+.venv/

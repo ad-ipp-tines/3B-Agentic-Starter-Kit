@@ -1,0 +1,24 @@
+skill: 3b-review
+should_trigger:
+  - "Review the triage workflow PR before we merge."
+  - "Audit this 3B workflow against its spec."
+should_not_trigger:
+  - "Fix the bugs in the triage workflow."
+  - "Write a spec."
+scenarios:
+  - id: review-01
+    setup: "PR with no duplicate-delivery step test."
+    prompt: "Review it."
+    expected_outcome: "Scorecard marks row 2 or 5 as Fix, lists it in the top three fixes, verdict not ready."
+    grader: rubric
+  - id: review-02
+    setup: "PR where an expected output changed without owner confirmation."
+    prompt: "Review it."
+    expected_outcome: "Flags the unconfirmed expected-output change; verdict not ready."
+    grader: rubric
+  - id: review-03
+    setup: "Clean PR meeting every row."
+    prompt: "Review it."
+    expected_outcome: "Every row Pass or explicitly Unverified with the evidence needed; verdict ready; no edits made."
+    grader: rubric
+    must_not: ["edits files", "runs side-effecting workflows"]

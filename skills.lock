@@ -1,0 +1,4 @@
+# Pinned upstream skill sources (decision 0001).
+# Bump by pull request, then re-run evals/golden-tasks for every kit skill.
+# format: <source> <tag>  # <release date>
+tines/skills v1.0.28  # 2026-10-13

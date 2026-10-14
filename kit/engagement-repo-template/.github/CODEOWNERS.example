@@ -1,0 +1,7 @@
+# Rename to CODEOWNERS and replace the teams with your own GitHub teams.
+# Specs need the workflow owner's team; agent rules and hooks need the platform team.
+/specs/        @<org>/<workflow-owners-team>
+/runbooks/     @<org>/<workflow-owners-team>
+/AGENTS.md     @<org>/<platform-team>
+/.claude/      @<org>/<platform-team>
+/.cursor/      @<org>/<platform-team>

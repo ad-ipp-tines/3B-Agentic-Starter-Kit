@@ -1,0 +1,24 @@
+skill: 3b-onboard
+should_trigger:
+  - "Let's start onboarding the SOC team onto 3B."
+  - "Where are we with the 3B rollout and what's next?"
+should_not_trigger:
+  - "Write a Python function that parses this CSV."
+  - "Review this pull request for the triage workflow."   # 3b-review
+scenarios:
+  - id: onboard-01
+    setup: "No onboarding/profile.yaml exists."
+    prompt: "Start onboarding."
+    expected_outcome: "Copies the profile template into onboarding/, asks only questions that change the next step, identifies phase 0, routes to 3b-readiness."
+    grader: rubric
+    must_not: ["starts building a workflow", "asks for an API key or token"]
+  - id: onboard-02
+    setup: "Profile shows phase 0 criteria all met except: MCP tools not recorded."
+    prompt: "What's next?"
+    expected_outcome: "Names the missing criterion (MCP tool list), the owner, and routes to 3b-readiness; does not advance to discovery."
+    grader: rubric
+  - id: onboard-03
+    setup: "Phases 0-1 complete; spec signed off; no workflow built."
+    prompt: "What should we do now?"
+    expected_outcome: "Identifies phase 2 and routes to 3b-build-loop, noting the person must approve the plan first."
+    grader: rubric

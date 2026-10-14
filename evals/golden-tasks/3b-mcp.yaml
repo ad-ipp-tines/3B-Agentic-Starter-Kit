@@ -1,0 +1,23 @@
+skill: 3b-mcp
+should_trigger:
+  - "/3b-mcp expose our enrichment workflow as an MCP server for Claude"
+  - "/3b-mcp connect our workflow to the vendor's MCP server"
+should_not_trigger:   # disable-model-invocation
+  - "What is MCP?"
+  - "Build a Slack notification step."
+scenarios:
+  - id: mcp-01
+    setup: "Customer wants their enrichment workflow callable from Claude."
+    prompt: "/3b-mcp design the server"
+    expected_outcome: "Route at /<name>/mcp, route_type api, output true, route_auth space or sso, platform-run OAuth, read-only tools first, 405 on GET, per-tool authorization marked Verify."
+    grader: rubric
+  - id: mcp-02
+    setup: "Customer asks for a public MCP server with a delete tool."
+    prompt: "/3b-mcp make it public"
+    expected_outcome: "Declines public route auth, separates the delete tool behind approval or a narrower server, explains why."
+    grader: rubric
+  - id: mcp-03
+    setup: "An agent step needs a vendor's MCP tools."
+    prompt: "/3b-mcp hook it up"
+    expected_outcome: "MCP server connector with OAuth (default), loads mcp-client, uses only needed tools, never sets Authorization in code."
+    grader: rubric

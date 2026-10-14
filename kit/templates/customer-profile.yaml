@@ -1,0 +1,58 @@
+# Customer profile — the context file the onboarding skills read first.
+# Copy this into the CUSTOMER'S OWN repository or folder (never commit a filled copy here).
+# Use roles and codenames, not people's names. Leave unknowns as "unknown"; skills will ask.
+
+engagement:
+  codename: unknown            # e.g. ACME-3B
+  goal: unknown                # one sentence: what changes for the business
+  success_metrics: []          # measurable, e.g. "MTTR under 30 min for P2 alerts"
+  phase: readiness             # readiness | discover | first-workflow | agentic | operate | scale
+
+stakeholders:                  # roles only
+  sponsor: unknown
+  platform_owner: unknown      # owns the 3B tenant
+  security_reviewer: unknown
+  builders: []                 # e.g. ["SOC engineer", "IT automation engineer"]
+
+tenant:
+  deployment: unknown          # cloud | self-hosted
+  url_placeholder: "https://<your-tenant>"   # keep the real host in the customer's copy only
+  mcp_endpoint_verified: false
+  cli_configured: false
+
+identity_and_access:
+  sso: unknown                 # yes | no
+  provisioning: unknown        # jit | scim
+  group_per_space: unknown     # recommended: one dedicated group per space
+  api_key_creation_allowed_for: []   # roles
+
+spaces:                        # planned collaboration scopes
+  - name: unknown
+    purpose: unknown
+    managers: []               # roles
+    editors: []                # roles
+
+connectors:                    # connected apps, by name; credentials never recorded here
+  - name: unknown
+    system: unknown            # e.g. Slack, Jira, CrowdStrike, an LLM provider
+    granted_to: []             # groups or spaces
+    status: unknown            # planned | connected | tested
+
+ai:
+  runtime_provider_connector: unknown
+  default_model: unknown
+  spend_limits: unknown        # tenant and per space
+
+network:
+  private_systems: []          # systems behind the firewall
+  tunnel: unknown              # none | native | reuse-existing
+
+governance:
+  audit_forwarding: unknown    # siem | s3 | none
+  change_control: unknown      # who may push live; change windows
+  data_residency: unknown
+  constraints: []
+
+coexistence:
+  uses_tines_stories: unknown
+  plan: unknown                # e.g. "new workflows in 3B; no migration this quarter"

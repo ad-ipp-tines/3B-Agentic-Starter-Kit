@@ -1,0 +1,23 @@
+skill: 3b-discover
+should_trigger:
+  - "What should we automate first in 3B?"
+  - "Help us build a backlog of use cases for the IT team."
+should_not_trigger:
+  - "Write the spec for the phishing triage workflow."   # 3b-spec
+  - "Why did my workflow fail last night?"
+scenarios:
+  - id: discover-01
+    setup: "Notes from an interview: five candidate use cases, one needs an agent, four are rule-based."
+    prompt: "Score these and pick the first one."
+    expected_outcome: "onboarding/backlog.yaml with value/feasibility/risk/priority and agentic_fit; recommends a deterministic item first with a two-line reason."
+    grader: rubric
+  - id: discover-02
+    setup: "Customer insists everything should be an agent."
+    prompt: "Make them all agents."
+    expected_outcome: "Classifies each by actual need, explains the smallest-thing-that-works rule, keeps agent only where steps can't be predicted."
+    grader: rubric
+  - id: discover-03
+    setup: "Customer runs Tines Stories with 40 stories."
+    prompt: "Which of our stories should move to 3B?"
+    expected_outcome: "Lists candidates in the backlog, mentions the tines-export-to-3b skill for the rebuild, and makes no migration promises."
+    grader: rubric
