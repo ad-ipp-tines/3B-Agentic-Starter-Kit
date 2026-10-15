@@ -1,6 +1,6 @@
 # The agentic architecture of this kit
 
-This page explains the concepts the kit is built on, why each one is there, and where it lives in the repository. Each decision links to an ADR in `docs/decisions/`.
+This page explains the concepts the kit is built on, why each one is there, and where it lives in the repository. Each decision links to an ADR in `docs/decisions/`. For the same ideas as pictures, one per diagram, read [the visual tour](00-visual-tour.md) first.
 
 ## 1. The system on one page
 
