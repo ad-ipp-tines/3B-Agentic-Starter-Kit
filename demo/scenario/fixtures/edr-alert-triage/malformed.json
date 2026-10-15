@@ -1,0 +1,6 @@
+{
+  "event_id": "evt-0002",
+  "source": "edr",
+  "host": "laptop-0043",
+  "observed_at": "not-a-timestamp"
+}

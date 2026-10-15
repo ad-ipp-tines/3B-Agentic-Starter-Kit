@@ -23,7 +23,9 @@ Builders work in Cursor or Claude Code, connected to their 3B tenant over MCP. T
 | [`kit/engagement-repo-template/`](kit/engagement-repo-template) | The customer's engagement repository: specs, fixtures, runbooks, onboarding records, CI |
 | [`kit/templates/`](kit/templates) | Spec, profile, backlog, success plan, runbook and fixture templates |
 | [`evals/`](evals) | Golden tasks per skill, plus the grading rubric |
-| [`docs/`](docs) | What 3B is, availability, the agentic architecture, setup, MCP, the programme, governance, quality, decisions |
+| [`docs/00-visual-tour.md`](docs/00-visual-tour.md) | **Start here.** Twelve diagrams, one idea each: repositories, MCP directions, the programme, the build loop, the ship path, trust boundaries, the guard, quality layers |
+| [`docs/`](docs/README.md) | What 3B is, availability, the agentic architecture, setup, MCP, the programme, governance, quality, decisions, the guide |
+| [`demo/`](demo/README.md) | The 25-minute demo: a synthetic EDR alert-triage workflow from spec to Live, built twice (plain prompt vs the kit), with talk track, fixtures and fallbacks |
 | [`prompts/`](prompts) | Prompts for Cursor and 3B to keep building this kit and its onboarding guide, plus the sync protocol |
 | [`PLAN.md`](PLAN.md) | The roadmap from bootstrap to v1 |
 
@@ -42,7 +44,7 @@ flowchart LR
   O -. new use case .-> D
 ```
 
-Why it's built this way: [docs/03-agentic-architecture.md](docs/03-agentic-architecture.md) and the [decision records](docs/decisions/README.md).
+Why it's built this way: [docs/03-agentic-architecture.md](docs/03-agentic-architecture.md) and the [decision records](docs/decisions/README.md). To see it before you read it: [the visual tour](docs/00-visual-tour.md). To show it to others: [the demo](demo/README.md).
 
 ## Contributing
 
