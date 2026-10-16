@@ -4,13 +4,13 @@
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/scripts/hooks/guard.py\"" }
+          { "type": "command", "command": "python3 \"${CLAUDE_PROJECT_DIR:-.}/scripts/hooks/guard.py\"" }
         ]
       },
       {
         "matcher": "mcp__.*",
         "hooks": [
-          { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/scripts/hooks/guard.py\"" }
+          { "type": "command", "command": "python3 \"${CLAUDE_PROJECT_DIR:-.}/scripts/hooks/guard.py\"" }
         ]
       }
     ]

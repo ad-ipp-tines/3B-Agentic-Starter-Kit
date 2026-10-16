@@ -12,10 +12,12 @@ One folder per workflow: `fixtures/<workflow-name>/`, with at least:
 
 Add one for every bug you fix — and a step test for the step that broke.
 
-Run one end to end on a draft branch (ask first if the workflow has side effects):
+Run one end to end (ask first if the workflow has side effects). The documented form is:
 
 ```bash
-cat fixtures/<workflow-name>/happy.json | 3b run <workflow-id> --wait --type application/json --branch <draft-branch-id>
+cat fixtures/<workflow-name>/happy.json | 3b run <workflow-id> --wait
 ```
+
+Content-type and draft-branch flags (`--type`, `--branch`) are examples to confirm with `3b --help` (VERIFY V11, V13); the MCP run tools or the UI are the alternative.
 
 Synthetic data only — no real customer payloads, personal data or secrets.

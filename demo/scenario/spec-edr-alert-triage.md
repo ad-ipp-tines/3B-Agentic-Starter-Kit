@@ -47,9 +47,11 @@ None in this version. (Stretch: `summarize_alert (AI)`, single request, output s
 
 ## 7. Expected results
 
+- **Safe to re-run fixtures:** yes (sandbox: the ticket goes to the `tickets` volume or a sandbox ticketing project)
+
 | Fixture | Expected output | Expected side effects |
 |---|---|---|
-| `happy.json` | `{priority:"P1", known_bad:true, ticket_id:"<id>"}` | one ticket; `seen` contains `evt-0001` |
+| `happy.json` | `{priority:"P1", known_bad:true, ticket_id: a non-empty string}` | one ticket; `seen` contains `evt-0001` |
 | `malformed.json` | `{status:"error", error_category:"malformed_input", retryable:false}` | none |
 | `duplicate.json` | no output from `check_duplicate`; downstream steps don't run | none; `seen` unchanged |
 

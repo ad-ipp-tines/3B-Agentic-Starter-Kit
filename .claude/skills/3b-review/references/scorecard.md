@@ -10,7 +10,7 @@ Each row is **Pass**, **Fix** or **Unverified**, with one line of evidence.
 | 4 | Malformed input gives a structured error and no side effects | | |
 | 5 | Duplicate delivery is detected and ignored | | |
 | 6 | Each step checks its input. Zero-byte output is used deliberately to stop downstream steps; failures exit non-zero | | |
-| 7 | Route auth is `space`, `tenant` or `sso` (with groups where needed). `public` has a written reason and reviewer | | |
+| 7 | Route auth matches the spec: `space` (default), `tenant`, `sso` (with `route_sso_groups`), `external_id` or `connector`. `public` only with a written reason and a named reviewer. Workflow-served MCP never `public` | | |
 | 8 | Credentials come only from connectors: no hand-written `Authorization` headers, no secrets in code, volumes, logs or outputs | | |
 | 9 | AI steps: the right shape (single request, interactive agent, or async agent that self-links), a strict output schema validated downstream, allowed actions, a token budget | | |
 | 10 | Every consequential action waits for a person's approval | | |

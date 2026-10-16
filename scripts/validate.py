@@ -16,6 +16,7 @@ Checks:
 """
 from __future__ import annotations
 
+import os
 import pathlib
 import re
 import sys
@@ -29,6 +30,7 @@ NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 LINK_RE = re.compile(r"\]\((?!https?://|mailto:|#)([^)#\s]+)(?:#[^)]*)?\)")
 SECRET_RES = [
     re.compile(r"\bsk-[A-Za-z0-9_-]{20,}"),
+    re.compile(r"\b3b_sk_[A-Za-z0-9]{8,}"),
     re.compile(r"\bgh[pousr]_[A-Za-z0-9]{30,}"),
     re.compile(r"\bxox[abpr]-[A-Za-z0-9-]{10,}"),
     re.compile(r"\bAKIA[0-9A-Z]{16}\b"),
@@ -109,13 +111,50 @@ def check_evals(skill_names: set[str]) -> None:
             errors.append(f"{rel(task)}: skill '{m.group(1)}' does not exist")
 
 
+REPO_DIRS = ("docs/", "kit/", "scripts/", "prompts/", "evals/", "tenant-skills/", ".claude/", ".cursor/", "demo/")
+PATH_TOKEN = re.compile(r"`((?:" + "|".join(re.escape(d) for d in REPO_DIRS) + r")[A-Za-z0-9_./-]*)`")
+
+
 def local_denylist() -> list[re.Pattern[str]]:
-    """Terms that must never appear (internal names, customer names). Kept OUT of git on purpose."""
+    """Terms that must never appear (internal names, customer names). Kept OUT of git on purpose:
+    read from .hygiene-denylist.local, or from the HYGIENE_DENYLIST env var (one regex per line) in CI."""
+    lines: list[str] = []
     path = ROOT / ".hygiene-denylist.local"
-    if not path.exists():
-        return []
-    lines = [l.strip() for l in path.read_text(encoding="utf-8").splitlines()]
-    return [re.compile(l, re.I) for l in lines if l and not l.startswith("#")]
+    if path.exists():
+        lines += path.read_text(encoding="utf-8").splitlines()
+    lines += os.environ.get("HYGIENE_DENYLIST", "").splitlines()
+    return [re.compile(l.strip(), re.I) for l in lines if l.strip() and not l.strip().startswith("#")]
+
+
+# Files that exist only at runtime (created by a person, gitignored) and may be cited anyway.
+RUNTIME_ONLY = {".cursor/mcp.json", ".claude/settings.local.json", ".hygiene-denylist.local"}
+
+
+def engagement_equivalent(token: str) -> pathlib.Path | None:
+    """Paths that exist only in an engagement repository after bootstrap.sh, mapped to their kit source."""
+    t = token.rstrip("/")
+    if t.startswith("kit/docs/"):
+        return ROOT / "docs" / t[len("kit/docs/"):]
+    if t == "kit/skills.lock":
+        return ROOT / "skills.lock"
+    if t.startswith(".claude/skills/enterprise-conventions"):
+        return ROOT / "tenant-skills/enterprise-conventions"
+    return None
+
+
+def check_backtick_paths(path: pathlib.Path, text: str) -> None:
+    """Backtick-quoted repository paths (e.g. `docs/VERIFY.md`) must exist in the kit,
+    or be an engagement-repository path bootstrap.sh produces, or a known runtime-only file."""
+    for token in PATH_TOKEN.findall(text):
+        if "<" in token or token.endswith("...") or token in RUNTIME_ONLY:
+            continue
+        target = ROOT / token.rstrip("/")
+        if target.exists():
+            continue
+        equiv = engagement_equivalent(token)
+        if equiv is not None and equiv.exists():
+            continue
+        errors.append(f"{rel(path)}: backtick path does not exist -> {token}")
 
 
 def check_docs_and_secrets() -> None:
@@ -128,6 +167,8 @@ def check_docs_and_secrets() -> None:
         text = path.read_text(encoding="utf-8", errors="ignore")
         if path.suffix == ".md" and ".claude" not in path.parts:
             check_links(path, text)
+        if path.suffix == ".md" and "engagement-repo-template" not in path.parts and "research" not in path.parts:
+            check_backtick_paths(path, text)
         for pattern in SECRET_RES:
             if pattern.search(text):
                 errors.append(f"{rel(path)}: secret-looking string ({pattern.pattern[:24]}...)")

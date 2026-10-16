@@ -46,6 +46,8 @@ A step's stdout is the next step's stdin. Every step checks its input before act
 
 ## 7. Expected results
 
+- **Safe to re-run fixtures:** yes / no (yes only if every fixture run is free of external side effects, so a reviewer may re-run them)
+
 | Fixture | Expected output | Expected side effects |
 |---|---|---|
 | `happy.json` | | |

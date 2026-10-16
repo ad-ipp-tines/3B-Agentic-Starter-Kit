@@ -18,7 +18,17 @@ tenant:
   deployment: unknown          # cloud | self-hosted
   url_placeholder: "https://<your-tenant>"   # keep the real host in the customer's copy only
   mcp_endpoint_verified: false
-  cli_configured: false
+  mcp_tools: []                # recorded by 3b-readiness from tools/list, e.g. {name: list_spaces, class: read}
+                               # class: read | run | build | publish. Skills use a tool by name only if it is listed here.
+  cli_configured: false        # optional; record the subcommands `3b --help` actually offers (VERIFY V11)
+  cli_commands_seen: []
+  official_skills_version: unknown   # compare with the kit's skills.lock
+
+source_control:
+  gitsync_provider: unknown    # github | none (GitLab/ADO customers use the direct space clone; note the compensating control)
+  space_repository: unknown    # org/repo, no hostnames beyond github.com
+  main_protected: unknown      # required review + CODEOWNERS confirmed by 3b-readiness
+  engagement_repository: unknown
 
 identity_and_access:
   sso: unknown                 # yes | no

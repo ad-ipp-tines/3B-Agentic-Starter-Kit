@@ -1,6 +1,6 @@
 # What Tines 3B is, for builders
 
-Tines 3B is an AI-native, code-first environment to build, run and monitor agents, apps and automations ([what is Tines 3B](https://docs.3b.tines.com/en/articles/15871664-what-is-tines-3b); [Introducing Tines 3B](https://www.tines.com/blog/introducing-tines-3b/)). AI writes the code, steps run as code in isolated containers, and the platform supplies identity, credentials, storage, networking, monitoring and governance around it. Tines' own frame is build with AI, monitor with AI, run deterministically.
+Tines 3B is an AI-native, code-first environment to build, run and monitor agents, apps and automations ([what is Tines 3B](https://docs.3b.tines.com/en/articles/15871664-what-is-tines-3b); [Introducing Tines 3B](https://www.tines.com/blog/introducing-tines-3b/)). AI writes the code, steps run as code in isolated containers, and the platform supplies identity, credentials, storage, networking, monitoring and governance around it. The kit's working frame: build with AI, run deterministically, review like code.
 
 It sits alongside **Tines Stories** (the no-code product). Stories continues and is still being invested in, and existing customers can explore 3B at no additional cost ([Introducing Tines 3B](https://www.tines.com/blog/introducing-tines-3b/)).
 
@@ -41,6 +41,21 @@ The license covers the environment, the infrastructure, and runtime measured in 
 | Power | Premium dedicated stack | 900K TU |
 
 A free **Explore** edition covers 3 live workflows and 5,000 TU a month, plus a one-time AI allowance. AI tokens are billed by your provider. Self-hosted installs are supported. Source: [pricing and packaging](https://docs.3b.tines.com/en/articles/15872428-tines-3b-pricing-and-packaging-overview). There are no public list prices, so ask the account team.
+
+## Ten terms, used the same way everywhere in this kit
+
+| Term | Means |
+|---|---|
+| **Space** | A team's collaboration scope in 3B; access is granted to it. Each production space is Git-synced to a **space repository** |
+| **Space repository** | The GitHub repository a space syncs to. Workflows only; `main` is Live |
+| **Engagement repository** | The customer's repository for specs, fixtures, runbooks and onboarding records, with the space repository cloned at `space/` |
+| **Draft** | Any branch other than `main`; isolated from Live |
+| **Live** | What runs in production. **Live moves** when a person merges to `main`; we don't say "publish" or "push live" for that, because in Git-synced spaces the `push_live` tool is refused |
+| **Step test** | A captured input/output pair under `Step/tests/step-tests/`, replayed by 3B at push-live |
+| **Fixture** | A whole-workflow synthetic input in `fixtures/<workflow>/`, run end to end on a draft |
+| **Connector** | 3B's credentialed integration; credentials are injected by the platform and never reach code or the model |
+| **Status label** | Every 3B capability claim is **Available**, **Verify** or **Not available** |
+| **Guard hook** | `scripts/hooks/guard.py`, run by both editors before shell and MCP calls; defence in depth behind 3B RBAC and branch protection |
 
 ## Where to keep up
 

@@ -11,6 +11,7 @@ This repository is where your team and your coding agents plan, specify, test an
 | `space/` | Your space repository (gitignored here; it has its own history and pull requests) |
 | `AGENTS.md` | Rules your coding agents follow |
 | `.claude/`, `.cursor/` | Agent skills, subagents and guard hooks from the 3B Agentic Starter Kit |
+| `kit/` | Templates, the kit's availability and VERIFY pages, setup and MCP references, and the pinned `skills.lock`, copied in by bootstrap |
 
 ## Set up once
 

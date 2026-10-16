@@ -2,7 +2,7 @@
 
 ## Why this repository exists
 
-Tines 3B is code-first and MCP-native. AI writes the code, steps run as code, and editors act on the tenant through MCP. That makes 3B the natural home for agentic building, and it raises the stakes on doing it safely. This kit turns that into a repeatable onboarding method for enterprise customers. It replaces our earlier Stories-oriented starter kit for 3B work (the Stories kit stays for Stories customers).
+Tines 3B is code-first and MCP-native. AI writes the code, steps run as code, and editors act on the tenant through MCP. Building this way is fast, and it needs the same controls as any other code path to production. This kit turns that into a repeatable onboarding method for enterprise customers. It replaces our earlier Stories-oriented starter kit for 3B work (the Stories kit stays for Stories customers).
 
 ## Goals
 
@@ -22,7 +22,7 @@ Tines 3B is code-first and MCP-native. AI writes the code, steps run as code, an
 | # | Milestone | Done when | Who |
 |---|---|---|---|
 | M0 | **Bootstrap** (this commit) | Rules, 9 skills, 4 subagents, guard hooks, templates, 12 ADRs, docs, evals, prompts; `validate.py` passes | CSE |
-| M1 | **Verify on a sandbox tenant** | `docs/VERIFY.md` V1–V8 closed. One end-to-end dry run of phases 0–2 on a sandbox (readiness → spec → build → PR → review → merge). Kit fixes merged | CSE + Cursor (Tines laptop), using `prompts/01-cursor-continue-building.md` |
+| M1 | **Verify on a sandbox tenant** | `docs/VERIFY.md` V1–V8 and V11–V14 closed. One end-to-end dry run of phases 0–2 on a sandbox (readiness → spec → build → PR → review → merge), which is also the demo dry run (`demo/README.md`). Kit fixes merged. Deferred review items done: trim `docs/03-agentic-architecture.md` §2 to concept / what / where, add a 15-line synthetic session transcript to `docs/04-setup-cursor-and-claude-code.md` | CSE + Cursor (Tines laptop), using `prompts/01-cursor-continue-building.md` |
 | M2 | **Onboarding guide and Launchpad** | `docs/guide/` chapters written. A 3B webpage workflow ("Launchpad") that walks a team through the programme, behind SSO or space auth | 3B, using `prompts/02-3b-build-onboarding-guide.md`; reviewed by the CSE |
 | M3 | **Automated evals** | Trigger checks and code-graded golden tasks run headless in CI. A no-skill baseline recorded for each skill | Cursor + CSE |
 | M4 | **Pilot** | One customer team through phases 0–3. Time to first Live workflow measured. Lessons recorded as ADRs or skill changes | CSE + customer |

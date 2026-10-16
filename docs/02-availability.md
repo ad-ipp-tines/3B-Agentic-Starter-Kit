@@ -12,9 +12,11 @@ Re-check this page when `skills.lock` moves and every month against the [product
 | 3B product (launched July 2026), paid plans, self-hosted | Available | [Introducing Tines 3B](https://www.tines.com/blog/introducing-tines-3b/); no explicit "GA" label |
 | Public docs with an `llms.txt` index | Available | https://docs.3b.tines.com/llms.txt |
 | Space as a Git repository (clone, branch, push) | Available | [Build in your own coding tools](https://docs.3b.tines.com/en/articles/16050928-build-a-workflow-in-your-own-coding-tools) |
-| GitSync to GitHub through a GitHub App | Available | [GitSync](https://docs.3b.tines.com/en/articles/16441033-sync-your-workflows-to-github-with-a-github-app). Default branch must be `main` |
+| GitSync to GitHub through a GitHub App | Available | [GitSync](https://docs.3b.tines.com/en/articles/16441033-sync-your-workflows-to-github-with-a-github-app). Default branch must be `main`. **GitHub only**: GitLab and Azure DevOps customers use the direct space clone, where a push to `main` publishes with no PR gate |
+| How a GitHub branch maps to a 3B draft, and how to find the draft id | **Verify** | V13 |
+| Running step tests on demand before a pull request | **Verify** | V12. Only automatic runs at push-live are documented |
 | Tenant MCP server at `<tenant origin>/mcp` (Streamable HTTP) | Available | [Connect an AI client](https://docs.3b.tines.com/en/articles/16050745-connect-an-ai-client-to-tines-3b-with-mcp) |
-| MCP build and publish tools over OAuth; service accounts limited to explore and run | Available | same |
+| MCP build and publish tools over OAuth; service-account tokens can explore, run and ask the in-product agent to build, but can't edit or publish | Available | same. Scope service accounts to non-production spaces |
 | Full MCP tool list | **Verify** | Not published. Only `push_live`, `sync_git` and `list_audit_logs` are named publicly. Record `tools/list` per tenant |
 | Official Cursor plugin "Tines 3B" | Available | [Cursor Marketplace](https://cursor.com/marketplace/tines-3b), [source](https://github.com/tines/tines-3b-integrations) |
 | Claude Code plugin from tines/skills | Not available | Removed from the repository on 2026-08-14. Use the Settings → MCP snippet and install the skills |
@@ -27,8 +29,9 @@ Re-check this page when `skills.lock` moves and every month against the [product
 | Workflows serving MCP (route step, platform-run OAuth 2.1 on `space`, `tenant` or `sso`) | Available | [`mcp-builder` skill](https://github.com/tines/skills/tree/main/skills/mcp-builder); SSO route auth for MCP added in August |
 | Per-tool authorization on a workflow-served MCP server | **Verify** | Not documented. Assume all callers see all tools |
 | Workflows calling remote MCP servers (MCP server connector: OAuth, bearer, SSO route; CA certificate) | Available | [Connect a workflow to a remote MCP server](https://docs.3b.tines.com/en/articles/16050833-connect-a-workflow-to-a-remote-mcp-server) |
-| 3B CLI (inspect, run, logs, chat, connectors) | Available | [Build in your own coding tools](https://docs.3b.tines.com/en/articles/16050928-build-a-workflow-in-your-own-coding-tools) |
-| CLI sign-in: `3b configure` (docs) or `3b auth login --host` (skill) | **Verify** | Check `3b --help` on your tenant |
+| 3B CLI: `3b run <id> --wait` | Available | [Build in your own coding tools](https://docs.3b.tines.com/en/articles/16050928-build-a-workflow-in-your-own-coding-tools) |
+| Other CLI subcommands used as examples in this kit (`spaces`, `runs`, `executions`, `output`, `logs`, `apps`, `--type`, `--branch`) | **Verify** | V11. The official skill says the CLI inspects, runs, reads executions and manages connectors, but no public reference lists the commands |
+| CLI sign-in: `3b configure` (docs) or `3b auth login --host` (skill) | **Verify** | V2. Check `3b --help` on your tenant |
 | REST API (OpenAPI at `/api/v1/openapi.json` on each tenant) | Available | [API docs](https://docs.3b.tines.com/en/articles/16151250-find-and-use-the-tines-3b-api-documentation). Personal API keys expire after 24 h |
 | Tines Units visible in Monitoring and through the API and MCP | Available | October 2026 product updates |
 | Tunnels to private networks | Available | [Reach a private network](https://docs.3b.tines.com/en/articles/16050736-reach-a-private-network-through-a-secure-tunnel) |
