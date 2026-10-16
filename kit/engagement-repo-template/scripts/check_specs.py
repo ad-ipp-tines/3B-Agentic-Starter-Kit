@@ -14,7 +14,9 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 REQUIRED = ["## 1. Purpose", "## 2. Trigger", "## 3. Inputs", "## 4. Steps", "## 6. Side effects and approvals",
-            "## 7. Expected results", "## 9. Step tests", "## 10. Rollout"]
+            "## 7. Expected results", "## 8. Observability", "## 9. Step tests", "## 10. Rollout"]
+PLACEHOLDER = re.compile(r"<(?:e\.g\.|[a-z][a-z ,/|-]{2,})>")  # template hints left unfilled, e.g. <role> or <e.g. ...>
+RERUN = re.compile(r"\*\*Safe to re-run fixtures:\*\*\s*(yes|no)\b", re.I)
 BASE_FIXTURES = ["happy.json", "malformed.json", "duplicate.json"]
 SECRETS = [re.compile(p) for p in (r"\bsk-[A-Za-z0-9_-]{20,}", r"\b3b_sk_[A-Za-z0-9]{8,}", r"\bgh[pousr]_[A-Za-z0-9]{30,}",
                                    r"\bxox[abpr]-[A-Za-z0-9-]{10,}", r"external_id=[A-Za-z0-9_-]{8,}",
@@ -31,6 +33,11 @@ def main() -> int:
                 errors.append(f"{spec.name}: missing section '{heading}'")
         if re.search(r"\bTBD\b", text):
             errors.append(f"{spec.name}: contains TBD")
+        body_no_comments = re.sub(r"<!--.*?-->", "", text, flags=re.S)
+        if PLACEHOLDER.search(body_no_comments):
+            errors.append(f"{spec.name}: unfilled template placeholder ({PLACEHOLDER.search(body_no_comments).group(0)})")
+        if not RERUN.search(text):
+            errors.append(f"{spec.name}: section 7 needs 'Safe to re-run fixtures: yes/no'")
         fx = ROOT / "fixtures" / spec.stem
         for name in BASE_FIXTURES:
             f = fx / name

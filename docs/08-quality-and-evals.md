@@ -10,7 +10,7 @@ flowchart BT
 
 | Layer | Who writes it | When it runs | Passes when |
 |---|---|---|---|
-| **Step tests** (`<Step>/tests/step-tests/`) | Builder agent, during the build | Before the PR, and automatically at push-live | Byte-for-byte match; expected outputs change only with the owner's confirmation |
+| **Step tests** (`<Step>/tests/step-tests/`) | Builder agent, during the build | Automatically at push-live (a failing test blocks the release). An on-demand runner before the PR is **Verify** (V12); until then the pre-PR gate is running each changed step plus the fixtures | Byte-for-byte match; expected outputs change only with the owner's confirmation |
 | **Fixtures** (`fixtures/<workflow>/`) | `3b-spec` | On the draft branch before the PR (ask first if there are side effects) | Results match the spec's expected results |
 | **AI evals** | Builder plus the workflow owner | Before an AI step goes live, and after any prompt or model change | Pass rate at or above the target in the spec; cost per run recorded |
 | **Review** (`3b-review`) | Reviewer subagent, in a fresh context | Every PR | Verdict "ready"; top fixes addressed |

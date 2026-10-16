@@ -64,5 +64,6 @@ Create an **"MCP server" connector** with the server URL and OAuth (the default)
 1. Editors act as the signed-in user, under their own permissions, with every change audit-logged.
 2. No token passthrough. Credentials stay in connectors, and the model never sees them.
 3. Workflow-served MCP is behind platform OAuth on `space`, `tenant` or `sso` routes, never public. It starts with read-only tools.
-4. Publishing needs a person: the push-live permission, plus a reviewed and merged pull request in Git-synced spaces.
-5. The kit's guard hooks block agents from publishing, deleting, granting or handling keys, in both Cursor and Claude Code.
+4. Publishing needs a person: the push-live permission, plus a reviewed and merged pull request in Git-synced spaces (GitHub branch protection enforces the review).
+5. Automation identities can't edit or publish, and we scope them to non-production spaces; builders use OAuth.
+6. As defence in depth, the kit's guard hook in both editors denies agents' attempts to publish, merge, push to `main`, delete, grant, or handle keys.

@@ -1,6 +1,6 @@
 # The onboarding programme
 
-Six phases, each ending with exit criteria a person signs off. The full checklists are in `.claude/skills/3b-onboard/references/programme.md`, and `3b-onboard` tracks where you are.
+Six phases, each ending with exit criteria a person signs off. **The canonical checklist is [`programme.md`](../.claude/skills/3b-onboard/references/programme.md)**; this page, the success-plan template and the router's table are summaries of it, and `3b-onboard` tracks where you are.
 
 | Phase | The customer gets | Typical length | Kit skills |
 |---|---|---|---|

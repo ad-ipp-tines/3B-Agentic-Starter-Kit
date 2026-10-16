@@ -11,10 +11,16 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    env:
+      # Optional repository secret: one regex per line of terms that must never appear
+      # (internal names, customer names). Never committed; see docs/decisions/0010.
+      HYGIENE_DENYLIST: ${{ secrets.HYGIENE_DENYLIST }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Skills, agents, evals, links and secrets
+      - name: Skills, agents, evals, links, paths, secrets and denylist
         run: python3 scripts/validate.py
+      - name: Engagement template spec checker compiles
+        run: python3 -m py_compile kit/engagement-repo-template/scripts/check_specs.py scripts/hooks/guard.py

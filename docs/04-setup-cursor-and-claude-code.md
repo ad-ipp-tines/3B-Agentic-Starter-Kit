@@ -33,7 +33,7 @@ Then complete sign-in from the `/mcp` menu inside a session.
 scripts/bootstrap.sh skills          # installs tines/skills at the tag in skills.lock (needs gh 2.90+)
 ```
 
-Without gh 2.90 or later, the fallback is `npx skills add tines/skills`. That installs from the default branch, which means unpinned; note the version in your readiness report. The Cursor plugin also installs the skills from the default branch the first time it's used.
+Without gh 2.90 or later, `scripts/bootstrap.sh skills --allow-unpinned` runs `npx skills add tines/skills` for you. That installs from the default branch, which means unpinned; note the version in your readiness report. The Cursor plugin's bundled skill tells the agent to run the same unpinned install if `building-workflows` is missing, so install first and the agent won't need to. (The kit's guard denies agent-initiated skill installs for that reason.)
 
 ## 3. Install the 3B CLI (optional, for scripted runs)
 
@@ -41,7 +41,7 @@ The documented install and sign-in flows differ, so check `3b --help` after inst
 - docs: `curl -fsSL https://<your-tenant>/cli/install.sh | sh`, then `3b configure`;
 - official skill: `curl --proto '=https' --tlsv1.2 -fsSL https://sh.3b.dev/cli/install.sh | sh`, then `3b auth login --host <your-tenant-host>`.
 
-Then confirm with `3b spaces`. A person runs these commands; the guard hook stops agents from piping installers into a shell.
+Then confirm with `3b --help` and a listing command it offers (the kit uses `3b spaces` as an example; the public docs confirm only `3b run <id> --wait`, see `VERIFY.md` V11). A person runs these commands; the guard hook stops agents from piping installers into a shell.
 
 ## 4. Get the repositories
 
@@ -54,7 +54,11 @@ Then confirm with `3b spaces`. A person runs these commands; the guard hook stop
 
 ## 5. Hooks
 
-`.claude/settings.json` (Claude Code) and `.cursor/hooks.json` (Cursor) run `scripts/hooks/guard.py` before shell and MCP calls. Cursor also imports Claude Code hooks when its third-party import setting is on (the default), so the guard may run twice. That's harmless.
+`.claude/settings.json` (Claude Code) and `.cursor/hooks.json` (Cursor, fail-closed) run `scripts/hooks/guard.py` before shell and MCP calls. Cursor also imports Claude Code hooks when its third-party import setting is on (the default), so the guard may run twice; the Claude Code entry uses `${CLAUDE_PROJECT_DIR:-.}` so it resolves from the repository root in either editor. Cursor's exact hook payload isn't in the public docs we've verified (`VERIFY.md` V7): test one allowed and one denied call after setup.
+
+**Cursor cloud agents** use team MCP servers configured at cursor.com/agents, not your local `mcp.json`, and run only a subset of hooks (no `beforeMCPExecution`). Treat them as outside this kit's guard: the enforced controls are still 3B RBAC and branch protection.
+
+Hooks are defence in depth. The controls a security team relies on are 3B permissions (builders don't hold push-live) and GitHub branch protection on `main`.
 
 ## Troubleshooting
 

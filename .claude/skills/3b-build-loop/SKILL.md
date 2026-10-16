@@ -1,6 +1,6 @@
 ---
 name: 3b-build-loop
-description: Builds or changes one Tines 3B workflow from a signed-off spec in a gated loop — plan, approval, branch, edit workflow files with Tines' building-workflows skill, run steps, write step tests, run fixtures on the draft, open a pull request, then hand to fresh-context review. Never publishes. Use when a spec is signed off and the person says to build it.
+description: Builds or changes one Tines 3B workflow from a signed-off spec in a gated loop — plan, approval, branch, edit workflow files with Tines' building-workflows skill, run steps, write step tests, run fixtures on the draft, open a pull request, then hand to fresh-context review. Never publishes. Invoke explicitly with /3b-build-loop <spec path> once the spec is signed off.
 disable-model-invocation: true
 compatibility: Cursor or Claude Code; Tines 3B; the official tines/skills
 ---
@@ -24,11 +24,11 @@ Load Tines' official **`building-workflows`** skill for how to build in 3B. Add 
    - Never hand-edit `connectors` in `config.toml`.
    - Never copy a `workflow.toml` `id`.
    - Default to TypeScript.
-4. **Connectors.** If a step needs a connector attached, show what will be connected and get approval. A person runs it, or approves the MCP call.
-5. **Run each changed step** (MCP run tools or the CLI). Ask before any run with side effects.
-6. **Step tests.** Add tests under `<Step>/tests/step-tests/` for the happy path, malformed input and a duplicate delivery, plus one per bug found. Change an expected output only after the workflow owner confirms the new behaviour.
-7. **Fixtures end to end** on the draft branch. Compare each result with the spec's **Expected results**. Ask before any run with side effects.
-8. **Read failures** from the run and execution details (MCP inspect tools, or `3b executions <workflow-id> --status error`, then `3b output` and `3b logs`). Fix the code or the spec, never the expected result.
+4. **Connectors.** If a step needs a connector attached, show what will be connected and get the person's approval. A person runs it, or approves the connect call. The guard denies connect-shaped calls that haven't been approved through a plan.
+5. **Run each changed step** (MCP run tools, or the CLI's run command). Ask before any run with side effects.
+6. **Step tests.** Add tests under `<Step>/tests/step-tests/` for the happy path, malformed input and a duplicate delivery, plus one per bug found. 3B runs them automatically at push-live; whether they can be run on demand before the PR is unconfirmed (V12), so the pre-PR gate is step 5 plus step 7. Change an expected output only after the workflow owner confirms the new behaviour.
+7. **Fixtures end to end** on the draft. Compare each result with the spec's **Expected results**. Ask before any run with side effects. How a GitHub branch maps to a 3B draft, and how to find its id, is unconfirmed (V13): ask the person for the draft id if the tools don't show it.
+8. **Read failures** from the run and execution details (MCP inspect tools, or the CLI; `3b executions <workflow-id> --status error`, `3b output` and `3b logs` are examples to confirm with `3b --help`, V11). Fix the code or the spec, never the expected result.
 9. **Repeat** steps 3–8. Stop after **five** rounds without everything passing, and report what's blocking, with evidence.
 10. **Pull request.** Commit inside `space/` with a message that names the spec, push the branch, and open a pull request on the space repository. Link the spec in the engagement repository, and paste the step test and fixture results. If you're working through MCP in a Git-synced space, use `sync_git`, not `push_live`.
 11. **Hand off** to a fresh-context review (`reviewer` subagent, or a new chat with `3b-review`).

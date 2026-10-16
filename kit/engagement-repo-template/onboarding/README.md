@@ -6,4 +6,5 @@
 | `progress.md` | every session | The engagement log: date, phase, what happened, decisions and reasons, next step |
 | `readiness.md` | `3b-readiness` | Readiness checks, status and gaps with owners |
 | `backlog.yaml` | `3b-discover` | Ranked use cases with agentic fit |
+| `governance.md` | platform owner | Controls in place with evidence; vendor answers; open items |
 | `guide/` | `3b-handover` | Your handover guide |

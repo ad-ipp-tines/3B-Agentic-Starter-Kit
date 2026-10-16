@@ -14,7 +14,9 @@ You're continuing work on the **3B Agentic Starter Kit**, a private repository t
 
 **Your milestones are M1 (verify on a sandbox tenant) and M3 (automated evals) in `PLAN.md`.** Work in small pull requests, one topic each, on branches named `cursor/<topic>`.
 
-## Task 1: Close the VERIFY register (`docs/VERIFY.md`, V1–V8)
+## Task 1: Close the VERIFY register (`docs/VERIFY.md`, V1–V8 and V11–V14)
+
+Start with V11 (the real CLI command surface) and V7 (Cursor's hook payload): the skills, runbooks and the guard depend on them. For V7, wrap `scripts/hooks/guard.py` in a small logger that writes each stdin payload to a scratch file, trigger one allowed and one denied shell call and one of each MCP call in Cursor, and record the shapes in the VERIFY row before fixing the hook.
 
 For each item:
 1. Show me a short plan and wait for "yes".

@@ -17,7 +17,7 @@ Run this in a new session, or as the `reviewer` subagent, never in the session t
 
 1. Read the spec, then the whole diff as one program: the triggers, each step's input and output, links and failure paths.
 2. Check that step tests exist for the happy path, malformed input and a duplicate delivery. Check that no expected output changed without the owner's confirmation in the PR.
-3. Re-run fixtures **only if** the spec marks them side-effect-safe. Otherwise read the builder's recorded executions.
+3. Re-run fixtures **only if** the spec's §7 says "Safe to re-run fixtures: yes". Otherwise read the builder's recorded executions.
 4. Fill the scorecard in [references/scorecard.md](references/scorecard.md). One line of evidence per row.
 5. Post the result as a pull request review comment, or return it to the person. Return:
    - the scorecard;
